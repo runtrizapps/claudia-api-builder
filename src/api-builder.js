@@ -180,7 +180,7 @@ module.exports = function ApiBuilder(options) {
 				};
 			});
 		},
-		routeEvent = function (routingInfo, event, context) {
+		routeEvent = function (routingInfo, event, context, callback) {
 			if (!routingInfo) {
 				throw 'routingInfo not set';
 			}
@@ -197,7 +197,7 @@ module.exports = function ApiBuilder(options) {
 					};
 				} else if (handler) {
 					return Promise.resolve().then(function () {
-						return handler(event, context);
+						return handler(event, context, callback);
 					}).then(function (result) {
 						return packResult(result, routingInfo, corsHeaders, 'success');
 					}).catch(function (error) {
